@@ -51,7 +51,48 @@ class ModelTraniner:
                 "XGBRegressor": XGBRegressor()
             }
 
-            model_report: dict = evaluate_models(X_train = X_train, y_train = y_train, X_test = X_test, y_test = y_test, models = models)
+            params = {
+                "Linear Regression": {},
+                "KNeighbors Regressor": {
+                    "n_neighbors": [3, 5, 7, 9, 11],
+                    # "weights": ["uniform", "distance"],
+                    # "algorithm": ["auto", "ball_tree", "kd_tree", "brute"]
+                },
+                "Random Forest Regressor": {
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                    # "criterion": ["squared_error", "friedman_mse", "absolute_error", "poisson"],
+                    # "max_features": ['sqrt', 'log2', 'None']
+                },
+                "Gradient Boosting Regressor": {
+                    # "loss": ['squared_error', 'huber', 'absolute_error' 'quantile'],
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                    "learning_rate": [0.1, 0.01, 0.05, 0.001],
+                    "subsample": [0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 1.0],
+                    # "criterion": ["squared_error", "friedman_mse"],
+                    # "max_features": ['sqrt', 'log2', 'auto']
+                },
+                "Decision Tree Regressor": {
+                    "criterion": ["squared_error", "friedman_mse", "absolute_error", "poisson"],
+                    # "splitter": ["best", "random"],
+                    # "max_features": ['sqrt', 'log2']
+                },
+                "AdaBoost Regressor": {
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                    "loss": ['linear', 'square', 'quantile'],
+                    "learning_rate": [0.1, 0.01, 0.05, 0.001]
+                },
+                "CatBoost Regressor": {
+                    "iterations": [30, 50, 100],
+                    "learning_rate": [0.01, 0.05, 0.1],
+                    "depth": [4, 6, 8, 11]
+                },
+                "XGBRegressor": {
+                    "n_estimators": [8, 16, 32, 64, 128, 256],
+                    "learning_rate": [0.1, 0.01, 0.05, 0.001],
+                }
+            }
+
+            model_report: dict = evaluate_models(X_train = X_train, y_train = y_train, X_test = X_test, y_test = y_test, models = models, params=params)
 
             # get best model score from the dict
             best_model_score = max(sorted(model_report.values()))
