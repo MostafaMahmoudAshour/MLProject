@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Performance Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Student Exam Performance Indicator</h1>
+        
+        {% if result %}
+        <div class="prediction-result">
+            {{ result }}
+        </div>
+        {% endif %}
+        
+        <form action="{{ url_for('predict_endpoint') }}" method="post">
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender" required>
+                    <option value="">Select Gender</option>
+                    <option value="male" >Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="race_ethnicity">Race/Ethnicity:</label>
+                <select id="race_ethnicity" name="race_ethnicity" required>
+                    <option value="">Select Race/Ethnicity</option>
+                    <option value="group C">Group C</option>
+                    <option value="group A">Group A</option>
+                    <option value="group D">Group D</option>
+                    <option value="group B">Group B</option>
+                    <option value="group E">Group E</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="parental_level_of_education">Parental Education:</label>
+                <select id="parental_level_of_education" name="parental_level_of_education" required>
+                    <option value="">Select Education Level</option>
+                    <option value="high school">High School</option>
+                    <option value="some college">Some College</option>
+                    <option value="associate's degree">Associate's Degree</option>
+                    <option value="bachelor's degree">Bachelor's Degree</option>
+                    <option value="master's degree">Master's Degree</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="lunch">Lunch Type:</label>
+                <select id="lunch" name="lunch" required>
+                    <option value="">Select Lunch Type</option>
+                    <option value="standard">Standard</option>
+                    <option value="free/reduced">Free/Reduced</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="test_preparation_course">Test Preparation:</label>
+                <select id="test_preparation_course" name="test_preparation_course" required>
+                    <option value="">Select Test Prep</option>
+                    <option value="none">None</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="reading_score">Reading Score (0-100):</label>
+                <input type="number" id="reading_score" name="reading_score" min="0" max="100" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="writing_score">Writing Score (0-100):</label>
+                <input type="number" id="writing_score" name="writing_score" min="0" max="100" required>
+            </div>
+            
+            <button type="submit" class="predict-button">Predict Performance</button>
+        </form>
+    </div>
+</body>
+</html>
